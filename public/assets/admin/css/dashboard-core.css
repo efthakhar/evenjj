@@ -1,0 +1,501 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,900&family=Roboto:wght@100;400;500;700&display=swap');
+
+*, *::after, *::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #374948;
+}
+
+th, h1, h2, h3, h4, h5, h6, p, a {
+    color: #374948;
+}
+
+
+
+input[type=checkbox] {
+    cursor: pointer;
+    /* width: 16px;
+    height: 16px;
+    box-shadow: none !important;
+    outline: none;
+    border: 1px solid #d3d3d3; */
+}
+
+/* .form-check-input:checked, .form-check-input:focus {
+    box-shadow: none;
+    background-color: none;
+    border: 1px solid #d3d3d3;
+} */
+
+/* utitlies */
+
+.fill-sb1 {
+    fill: #0084ff !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.admin-single-view .form-control:disabled {
+    background: #ffffff !important;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fit-content {
+    width: fit-content;
+}
+
+.fw20px {
+    width: 20px;
+}
+
+.fw30px {
+    width: 30px;
+}
+
+.fw50px {
+    width: 50px;
+}
+
+.fw100px {
+    width: 100px;
+}
+
+.fw150px {
+    width: 150px;
+}
+
+.fw200px {
+    width: 200px;
+}
+
+.wh20px {
+    width: 20px !important;
+    height: 20px !important;
+}
+
+.mw20px {
+    min-width: 20px;
+}
+
+.mw50px {
+    min-width: 50px;
+}
+
+.mw100px {
+    min-width: 100px;
+}
+
+.mw150px {
+    min-width: 150px;
+}
+
+.mw200px {
+    min-width: 200px;
+}
+
+.mw250px {
+    min-width: 250px;
+}
+
+.mw300px {
+    min-width: 300px;
+}
+
+.bg-sb1 {
+    background-color: #0084ff !important;
+}
+
+.bg-sb2 {
+    background-color: #e5f2ff !important;
+}
+
+.bg-success-1 {
+    background-color: #e5fae5 !important;
+}
+
+.text-success-1 {
+    color: #00ca00;
+}
+
+.text-sb1 {
+    color: #0084ff !important;
+}
+
+.text-b1 {
+    color: #374948 !important;
+}
+
+.table-img-field {
+    max-width: 100px;
+}
+
+.table-img-field img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+}
+
+/* Works on Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.116) rgb(255, 255, 255);
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 3px;
+}
+
+*::-webkit-scrollbar-track {
+    background: rgb(255, 255, 255);
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.116);
+    border-radius: 20px;
+}
+
+
+a {
+    text-decoration: none;
+}
+
+svg {
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Admin Sidebar */
+
+.admin-page {
+    display: flex;
+    height: 100vh;
+    position: relative;
+}
+
+.admin-sidebar {
+    width: 230px;
+    height: 100vh;
+    flex: 0 0 230px;
+    user-select: none;
+    border-right: 1px solid #d1d5db;
+    background-color: #FFFFFF;
+    overflow-y: auto;
+    height: 100vh;
+    transition: all .3s;
+    z-index: 200;
+}
+
+.admin-sidebar-hidden {
+    width: 0px;
+    height: 100vh;
+    flex: 0 0 0px;
+    transition: all .3s;
+}
+
+.admin-sibar__logo {
+    background-color: rgb(255, 255, 255);
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    padding: 1rem .7rem;
+    z-index: 100;
+}
+
+.admin-sibar__logo_icon svg {
+    width: 30px;
+    height: 30px;
+    fill: #0084ff;
+}
+
+.admin-sibar__logo .logo-text {
+    color: #313435;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+
+/* .admin-sidebar__links {
+    padding-top: 1rem;
+} */
+
+.admin-sidebar__link_item {
+    cursor: pointer;
+    position: relative;
+}
+
+.sidebar__link {
+    text-transform: capitalize;
+    display: flex;
+    align-items: center;
+    padding: .3rem .7rem;
+    font-size: 1rem;
+    color: #72777a;
+    transition: all .2s;
+    font-weight: 400;
+
+}
+
+.sidebar__link i {
+    font-weight: 500;
+    font-size: 1.4rem;
+
+}
+
+
+.sidebar__link.active, .sidebar__link:hover {
+    color: #0084ff;
+    background-color: #E5F2FF;
+}
+
+
+.sidebar__sublink {
+    text-transform: capitalize;
+    display: block;
+    padding: .4rem 1rem;
+    font-size: 1rem;
+    color: #72777a;
+    transition: all .2s;
+    font-weight: 400;
+}
+
+.sidebar__sublink.active, .sidebar__sublink:hover {
+    color: #0084ff;
+}
+
+
+
+.sidebar__link_sublinks {
+    max-height: 0;
+    transition: max-height 0.1s ease-out;
+    overflow: hidden;
+}
+
+.sidebar__link_sublinks.show_sublinks {
+    max-height: 1000px;
+    transition: max-height 0.5s ease-in;
+}
+
+
+/* ADMIN MAIN AREA */
+.admin-main {
+    width: auto;
+    flex: 1 1 auto;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.admin-header {
+    display: flex;
+    align-items: center;
+    padding: 5px 16px;
+    min-height: 58px;
+    background-color: rgb(255, 255, 255);
+    border-bottom: 1px solid #d1d5db;
+    position: sticky;
+    top: 0%;
+    z-index: 100;
+}
+
+.header-menu-icon i {
+
+    font-size: 2rem;
+    color: #0084ff;
+    user-select: none;
+    cursor: pointer;
+
+}
+
+
+.hide-small-device-sidebar i {
+    display: none;
+    font-size: 2rem;
+    margin-left: 30px;
+    cursor: pointer;
+    color: #0084ff;
+
+}
+
+/* ADMIN CONTENT */
+
+.admin-content {
+    padding: 20px 30px;
+}
+
+
+
+@media screen and (max-width: 800px) {
+    .admin-sidebar {
+        position: absolute;
+        width: 230px;
+        left: -100%;
+    }
+
+    .admin-sidebar-hidden {
+        position: absolute;
+        width: 230px;
+        left: 0%;
+    }
+
+    .hide-small-device-sidebar i {
+        display: block;
+    }
+}
+
+/* Delete Confirmbox Css */
+#delete-confirmbox-container {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.253);
+    z-index: 400;
+}
+
+#delete-confirmbox {
+    width: 95vw;
+    max-width: 400px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+}
+
+
+
+/* Dropdown Menu Bootstrap Width */
+.dropdown-menu.fit-content {
+    min-width: fit-content;
+}
+
+/* Media window css */
+.media-window-container {
+    box-sizing: border-box;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 300;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(151, 149, 149, 0.932);
+}
+
+.media-window {
+    padding: 3px;
+    box-sizing: border-box;
+    position: relative;
+    width: 96vw;
+    height: 90vh;
+    background-color: white;
+    border: 2px solid whitesmoke;
+    border-radius: 3px;
+}
+
+.media-window-inner {
+    box-sizing: border-box;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.media-window-actionbar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+}
+
+.media-window-item {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.copy-media-link {
+    position: absolute;
+    top: -100%;
+    left: 0%;
+    padding: 10px 15px;
+    background-color: white;
+    color: black;
+    z-index: 350;
+    /* transition: all .1s; */
+    font-size: 16px;
+}
+
+.copy-media-link.copied {
+    background-color: yellow;
+}
+
+.media-window-item:hover .copy-media-link {
+    top: 0%;
+}
+
+.media-window-item.selected .card {
+    border: 1px solid green;
+    box-shadow: 1px 1px 5px green;
+}
+
+.media-window-item p {
+    font-size: 12px;
+}
+
+.media-window-container input {
+    padding: 0 10px;
+}
+
+.media-window-container input:focus {
+    outline: none;
+}
+
+/* Style for inserted img */
+.inserted_img_container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.inserted_img {
+    margin: 3px;
+    position: relative;
+}
+
+.inserted_img img {
+    width: 130px;
+    height: auto;
+}
+
+.inserted_img .cross-btn svg {
+    height: 20px;
+    width: 20px;
+    fill: white;
+    background-color: rgb(255, 0, 0);
+    margin: 0;
+    cursor: pointer;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
