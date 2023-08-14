@@ -161,16 +161,16 @@ class EventCategoryController extends Controller
     //     return redirect()->route('admin.category.edit', $id)->with('EventCategoryUpdateSuccess', 'EventCategory Updated Successfully');
     // }
 
-    // public function delete($id)
-    // {
-    //     $id = explode(',', $id);
-    //     $this->authorize('delete-categories');
+    public function delete($id)
+    {
+        $id = explode(',', $id);
+        $this->authorize('delete_event_category');
 
-    //     foreach ($id as $i) {
-    //         $category = EventCategory::find($i);
-    //         $category->delete();
-    //     }
+        foreach ($id as $i) {
+            $category = EventCategory::find($i);
+            $category->delete();
+        }
 
-    //     return response()->json(['message' => 'category deleted'], 201);
-    // }
+        return response()->json(['message' => 'event category deleted'], 201);
+    }
 }

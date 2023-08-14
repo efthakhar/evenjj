@@ -105,5 +105,5 @@
     @endsection
 
     @section('footer-script')
-    <script src="{{asset('assets/admin/js/category.js')}}"></script>
+    <script src="{{asset('assets/admin/js/event-category.js')}}"></script>
     @endsection
