@@ -9,72 +9,76 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
-class AuthController extends Controller {
+class AuthController extends Controller
+{
+    public function showUserRegistrationPage()
+    {
+        if (Auth::check()) {
+            return redirect('/admin/overview');
+        }
 
+        return view('auth.register');
+    }
 
-	public function showUserRegistrationPage() {
-		if (Auth::check()) {
-			return redirect('/admin/overview');
-		}
+    public function registerUser(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', Rules\Password::defaults()],
+        ]);
 
-		return view('auth.register');
-	}
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
 
-	public function registerUser (Request $request) {
-		$request->validate([
-			'name'     => ['required', 'string', 'max:255'],
-			'email'    => ['required', 'email', 'max:255', 'unique:users'],
-			'password' => ['required', Rules\Password::defaults()],
-		]);
+        if ($user) {
+            return redirect('/login');
+        }
 
-		$user = User::create([
-			'name'     => $request->name,
-			'email'    => $request->email,
-			'password' => Hash::make($request->password),
-		]);
+        return back();
+    }
 
-		if ($user) {
-			return redirect('/login');
-		}
+    public function showloginPage()
+    {
 
-		return back();
-	}
+        if (Auth::check()) {
+            return redirect('/admin');
+        }
 
-	public function showloginPage() {
+        return view('auth.login');
+    }
 
-		if (Auth::check()) {
-			return redirect('/admin');
-		}
+    public function login(Request $request)
+    {
 
-		return view('auth.login');
-	}
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
-	public function login(Request $request) {
+        if (Auth::attempt($credentials, 100)) {
 
-		$credentials = $request->validate([
-			'email'    => 'required|email',
-			'password' => 'required',
-		]);
+            $request->session()->regenerate();
 
-		if (Auth::attempt($credentials, 100)) {
+            return redirect('admin');
+        }
 
-			$request->session()->regenerate();
+        return back()->withErrors([
+            'email' => 'The email does not match',
+            'password' => 'The password does not match',
+        ])->onlyInput('email', 'password');
+    }
 
-			return redirect('admin');
-		}
+    public function logout(Request $request)
+    {
 
-		return back()->withErrors([
-			'email'    => 'The email does not match',
-			'password' => 'The password does not match',
-		])->onlyInput('email', 'password');
-	}
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-	public function logout(Request $request) {
-
-		Auth::logout();
-		$request->session()->invalidate();
-		$request->session()->regenerateToken();
-
-		return redirect('/login');
-	}
+        return redirect('/login');
+    }
 }

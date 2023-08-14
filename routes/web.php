@@ -19,7 +19,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 // Authentication Routes
 Route::get('/register', [AuthController::class, 'showUserRegistrationPage'])->name('showUserRegistrationPage');
 Route::post('/register', [AuthController::class, 'registerUser'])->name('registerUser');
@@ -28,9 +27,9 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Admin Routes:
-Route::middleware(['auth'])->group(function() {
+Route::middleware(['auth'])->group(function () {
 
-	// Dashboard
-	Route::get('/admin', [DashboardController::class, 'overview']);
+    // Dashboard
+    Route::get('/admin', [DashboardController::class, 'overview']);
 
 });
