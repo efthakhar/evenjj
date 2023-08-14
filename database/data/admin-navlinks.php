@@ -15,13 +15,13 @@ return [
         'sublinks' => [
             [
                 'label' => 'All Categories',
-                'link' => '/admin/categories',
+                'link' => '/admin/event-categories',
                 'icon' => 'ri-arrow-right-fill',
                 'permissions' => [],
             ],
             [
                 'label' => 'New Category',
-                'link' => '/admin/categories/create',
+                'link' => '/admin/event-categories/create',
                 'icon' => 'ri-arrow-right-fill',
                 'permissions' => [],
             ],

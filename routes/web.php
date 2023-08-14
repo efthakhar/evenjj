@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\EventCategory\EventCategoryController;
 use App\Http\Controllers\Admin\Dashboard\DashboardController;
 use App\Http\Controllers\Auth\AuthController;
 use Database\Seeders\DevDemo;
@@ -42,5 +43,15 @@ Route::middleware(['auth'])->group(function () {
 
     // Dashboard
     Route::get('/admin', [DashboardController::class, 'overview']);
+
+    // Category
+    Route::get('/admin/event-categories', [EventCategoryController::class, 'index'])->name('admin.event_category.index');
+    Route::get('/admin/event-categories/list', [EventCategoryController::class, 'list'])->name('admin.event_category.list');
+    Route::get('/admin/event-categories/create', [EventCategoryController::class, 'create'])->name('admin.event_category.create');
+    Route::get('/admin/event-categories/{id}', [EventCategoryController::class, 'show'])->name('admin.event_category.single');
+    Route::post('/admin/event-categories', [EventCategoryController::class, 'store'])->name('admin.event_category.store');
+    Route::get('/admin/event-categories/{id}/edit', [EventCategoryController::class, 'edit'])->name('admin.event_category.edit');
+    Route::put('/admin/event-categories/{id}', [EventCategoryController::class, 'update'])->name('admin.event_category.update');
+    Route::delete('/admin/event-categories/{id}', [EventCategoryController::class, 'delete'])->name('admin.event_category.delete');
 
 });
