@@ -20,9 +20,11 @@ class DevDemo extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
         Role::truncate();
         DB::table('users')->truncate();
+        DB::table('event_categories')->truncate();
 
         $this->call(PermissionSeeder::class);
         $this->call(SuperAdmin::class);
+        $this->call(EventCategory::class);
 
         Schema::enableForeignKeyConstraints();
     }
