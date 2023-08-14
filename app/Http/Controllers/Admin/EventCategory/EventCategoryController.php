@@ -46,14 +46,14 @@ class EventCategoryController extends Controller
         return response()->json($categories);
     }
 
-    // public function show($id)
-    // {
-    //     $this->authorize('view-categories');
+    public function show($id)
+    {
+        $this->authorize('view_event_category');
 
-    //     return view('admin.category.single', [
-    //         'category' => EventCategory::find($id),
-    //     ]);
-    // }
+        return view('admin.event-category.single', [
+            'category' => EventCategory::find($id),
+        ]);
+    }
 
     // public function create()
     // {
