@@ -39,18 +39,12 @@ class EventCategoryController extends Controller
         ]);
     }
 
-    // public function list(Request $request)
-    // {
-    //     $this->authorize('view-categories');
-
-    //     $language = $request->query('language');
-    //     $posttype = $request->query('posttype');
-
-    //     // return [$language,$posttype];
-    //     $categories = EventCategory::where('lang', '=', $language)->where('post_type', '=', $posttype)->select(['id', 'name', 'parent_category_id'])->get();
-
-    //     return response()->json($categories);
-    // }
+    public function list()
+    {
+        $this->authorize('view_event_category');
+        $categories = EventCategory::select(['id', 'name'])->get();
+        return response()->json($categories);
+    }
 
     // public function show($id)
     // {
