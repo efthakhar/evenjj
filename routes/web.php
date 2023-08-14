@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Admin\Dashboard\DashboardController;
 use App\Http\Controllers\Auth\AuthController;
+use Database\Seeders\DevDemo;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +19,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+// create demo site
+Route::get('/demo', function (Request $reqest) {
+
+    $seeder = new DevDemo();
+    $seeder->run();
+
+    return redirect('/login');
 });
 
 // Authentication Routes
