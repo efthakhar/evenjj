@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Admin\EventCategory\EventCategoryController;
 use App\Http\Controllers\Admin\Dashboard\DashboardController;
+use App\Http\Controllers\Admin\EventCategory\EventCategoryController;
 use App\Http\Controllers\Auth\AuthController;
 use Database\Seeders\DevDemo;
 use Illuminate\Http\Request;

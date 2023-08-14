@@ -9,7 +9,7 @@
     <div class="form-container">
         <form>
             <div class="row">
-                <div class="col-md-6 row shadow-sm py-3">
+                <div class="col-md-6 row">
                     <div class="form_item col-12">
                         <label class="mt-3 mb-1">Category name</label>
                         <input type="text" class="form-control form-control-sm" disabled name='name'

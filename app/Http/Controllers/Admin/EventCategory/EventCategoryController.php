@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin\EventCategory;
 use App\Http\Controllers\Controller;
 use App\Models\EventCategory;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class EventCategoryController extends Controller
 {
-
     public function index(Request $request)
     {
 
@@ -35,7 +35,7 @@ class EventCategoryController extends Controller
             });
 
         return view('admin.event-category.index', [
-            'categories' => $categories->paginate($perpage)->appends($request->query())
+            'categories' => $categories->paginate($perpage)->appends($request->query()),
         ]);
     }
 
@@ -43,6 +43,7 @@ class EventCategoryController extends Controller
     {
         $this->authorize('view_event_category');
         $categories = EventCategory::select(['id', 'name'])->get();
+
         return response()->json($categories);
     }
 
@@ -107,59 +108,38 @@ class EventCategoryController extends Controller
     //     return redirect()->route('admin.category.index');
     // }
 
-    // public function edit($id)
-    // {
-    //     $this->authorize('update-categories');
+    public function edit($id)
+    {
+        $this->authorize('edit_event_category');
 
-    //     return view('admin.category.edit', [
-    //         'category' => EventCategory::find($id),
-    //     ]);
-    // }
+        return view('admin.event-category.edit', [
+            'category' => EventCategory::find($id),
+        ]);
+    }
 
-    // public function update(Request $request, $id)
-    // {
-    //     $this->authorize('view-categories');
+    public function update(Request $request, $id)
+    {
+        $this->authorize('edit_event_category');
 
-    //     $slug = $request->slug ? strtolower(str_replace(' ', '-', $request->slug)) : strtolower(str_replace(' ', '-', $request->name));
+        $slug = $request->slug ? strtolower(str_replace(' ', '-', $request->slug)) : strtolower(str_replace(' ', '-', $request->name));
 
-    //     $request->merge(['slug' => $slug]);
+        $request->merge(['slug' => $slug]);
 
-    //     $validatedData = $request->validate([
-    //         'lang' => 'required',
-    //         'post_type' => 'required',
-    //         'name' => [
-    //             'required',
-    //             'max:30',
-    //             new CombineUnique(['lang' => $request->lang, 'name' => $request->name, 'post_type' => $request->post_type], 'categories', 'name must be unique', $id),
-    //         ],
-    //         'slug' => [
-    //             'required',
-    //             'max:30',
-    //             new CombineUnique(['lang' => $request->lang, 'name' => $request->name, 'post_type' => $request->post_type], 'tags', 'slug must be unique', $id),
-    //         ],
-    //         'description' => 'string|nullable',
-    //         'meta_tag_description' => 'string|nullable',
-    //         'meta_tag_keywords' => 'string|nullable',
-    //     ]);
+        $validatedData = $request->validate([
 
-    //     $validatedData['updated_by'] = auth()->id();
+            'name' => ['required', 'max:30', Rule::unique('event_categories')->ignore($id)],
+            'slug' => ['required', 'max:30', Rule::unique('event_categories')->ignore($id)],
+        ]);
 
-    //     $category = EventCategory::find($id);
-    //     $category->parent_category_id = $validatedData['parent_category'] ?? null;
-    //     $category->name = $validatedData['name'];
-    //     $category->slug = $validatedData['slug'];
-    //     $category->description = $validatedData['description'];
-    //     $category->meta_tag_description = $validatedData['meta_tag_description'];
-    //     $category->meta_tag_keywords = $validatedData['meta_tag_keywords'];
-    //     $category->lang = $validatedData['lang'];
-    //     $category->post_type = $validatedData['post_type'];
+        $category = EventCategory::find($id);
+        $category->name = $validatedData['name'];
+        $category->slug = $validatedData['slug'];
 
-    //     $category->save();
-    //     $category->detachMediaTags('thumbnail');
-    //     $category->attachMedia($request->category_thumbnail, 'thumbnail');
+        $category->save();
 
-    //     return redirect()->route('admin.category.edit', $id)->with('EventCategoryUpdateSuccess', 'EventCategory Updated Successfully');
-    // }
+        return redirect()->route('admin.event_category.edit', $id)
+            ->with('EventCategoryUpdateSuccess', 'EventCategory Updated Successfully');
+    }
 
     public function delete($id)
     {
