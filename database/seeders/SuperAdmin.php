@@ -25,6 +25,6 @@ class SuperAdmin extends Seeder
         $created_user = User::find($created_user_id);
 
         // assign super-admin role to created user
-        $created_user->assignRole('super_admin');
+        $created_user->assignRole('user');
     }
 }
