@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\EventCategory;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class EventController extends Controller
 {
@@ -20,7 +19,7 @@ class EventController extends Controller
         $sortby = $request->query('sortby');
         $sorttype = $request->query('sorttype') ?? 'asc';
 
-        $events = Event::where('created_by',auth()->user()->id);
+        $events = Event::where('created_by', auth()->user()->id);
 
         $events
             ->when($title, function ($query, $title) {
@@ -41,8 +40,8 @@ class EventController extends Controller
     {
         $this->authorize('create_event');
 
-        return view('admin.event.create',[
-            'categories' => EventCategory::select('id','name')->get()
+        return view('admin.event.create', [
+            'categories' => EventCategory::select('id', 'name')->get(),
         ]);
     }
 
@@ -55,10 +54,10 @@ class EventController extends Controller
             'event_category_id' => ['required'],
             'date' => ['required'],
             'time' => ['required'],
-            'location' => ['required','string'],
-            'description' => ['required','string'],     
-        ],[
-            'event_category_id.required' => 'plesase select a category'
+            'location' => ['required', 'string'],
+            'description' => ['required', 'string'],
+        ], [
+            'event_category_id.required' => 'plesase select a category',
         ]);
 
         $event = new Event();
@@ -73,5 +72,15 @@ class EventController extends Controller
         $event->save();
 
         return redirect()->route('admin.event.index');
+    }
+
+    public function edit($id)
+    {
+        $this->authorize('edit_own_event');
+
+        return view('admin.event.edit', [
+            'event' => Event::where(['id' => $id,'created_by' => auth()->user()->id,])->first(),
+            'categories' => EventCategory::select('id', 'name')->get()
+        ]);
     }
 }

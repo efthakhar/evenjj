@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Event;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class EventSeeder extends Seeder
@@ -28,10 +27,10 @@ class EventSeeder extends Seeder
             'event_category_id' => 4,
         ],
     ];
-    
+
     public function run(): void
     {
-        foreach($this->events as $e){
+        foreach ($this->events as $e) {
             Event::create($e);
         }
     }

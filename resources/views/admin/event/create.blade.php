@@ -41,7 +41,7 @@
                         @error('time')
                         <p class="text-danger">{{ $message }}</p>
                         @enderror
-                        <input type="time" class="form-control form-control-sm" name='time' value=" {{old('time')}} ">
+                        <input step="any" type="time" class="form-control form-control-sm" name='time' value=" {{old('time')}} ">
                     </div>
                     <div class="form_item col-md-12">
                         <label class="mt-3 mb-1">Description</label>

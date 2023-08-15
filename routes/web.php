@@ -55,7 +55,6 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/admin/event-categories/{id}', [EventCategoryController::class, 'update'])->name('admin.event_category.update');
     Route::delete('/admin/event-categories/{id}', [EventCategoryController::class, 'delete'])->name('admin.event_category.delete');
 
-
     // Event
     Route::get('/admin/events', [EventController::class, 'index'])->name('admin.event.index');
     Route::get('/admin/events/create', [EventController::class, 'create'])->name('admin.event.create');

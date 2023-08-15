@@ -16,6 +16,6 @@ class Event extends Model
         'time',
         'location',
         'created_by',
-        'event_category_id'
+        'event_category_id',
     ];
 }

@@ -16,7 +16,6 @@ class DevDemo extends Seeder
         Cache::flush();
         Schema::disableForeignKeyConstraints();
 
-
         // Permission::truncate();
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
         // Role::truncate();
@@ -25,7 +24,6 @@ class DevDemo extends Seeder
         DB::table('model_has_roles')->truncate();
         DB::table('permissions')->truncate();
         DB::table('roles')->truncate();
-
 
         DB::table('users')->truncate();
         DB::table('event_categories')->truncate();
