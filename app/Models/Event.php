@@ -15,6 +15,7 @@ class Event extends Model
         'date',
         'time',
         'location',
-        'created_by'
+        'created_by',
+        'event_category_id'
     ];
 }

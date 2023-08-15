@@ -21,10 +21,12 @@ class DevDemo extends Seeder
         Role::truncate();
         DB::table('users')->truncate();
         DB::table('event_categories')->truncate();
+        DB::table('events')->truncate();
 
         $this->call(PermissionSeeder::class);
         $this->call(SuperAdmin::class);
         $this->call(EventCategory::class);
+        $this->call(EventSeeder::class);
 
         Schema::enableForeignKeyConstraints();
     }
