@@ -17,9 +17,11 @@
                     </li>
                     <div class="sidebar__link_sublinks">
                         @foreach ($navlink['sublinks'] as $sublink)
+                            @can($sublink['permissions'])        
                             <a href="{{ $sublink['link'] }}" class="sidebar__sublink">                 
                                 <span class="ms-2"> <i class="ri-arrow-right-fill me-2"></i> {{ $sublink['label'] }}</span>
                             </a>
+                            @endcan
                         @endforeach
                     </div>
                 @else

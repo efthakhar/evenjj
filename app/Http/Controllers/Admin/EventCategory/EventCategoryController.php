@@ -12,8 +12,6 @@ class EventCategoryController extends Controller
 {
     public function index(Request $request)
     {
-        
-        //return Auth::user();
         $this->authorize('view_event_category');
 
         $perpage = $request->query('perpage') ?? 10;
