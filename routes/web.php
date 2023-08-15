@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\Dashboard\DashboardController;
+use App\Http\Controllers\Admin\Event\EventController;
 use App\Http\Controllers\Admin\EventCategory\EventCategoryController;
 use App\Http\Controllers\Auth\AuthController;
 use Database\Seeders\DevDemo;
@@ -44,7 +45,7 @@ Route::middleware(['auth'])->group(function () {
     // Dashboard
     Route::get('/admin', [DashboardController::class, 'overview']);
 
-    // Category
+    // Event Category
     Route::get('/admin/event-categories', [EventCategoryController::class, 'index'])->name('admin.event_category.index');
     Route::get('/admin/event-categories/list', [EventCategoryController::class, 'list'])->name('admin.event_category.list');
     Route::get('/admin/event-categories/create', [EventCategoryController::class, 'create'])->name('admin.event_category.create');
@@ -53,5 +54,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/event-categories/{id}/edit', [EventCategoryController::class, 'edit'])->name('admin.event_category.edit');
     Route::put('/admin/event-categories/{id}', [EventCategoryController::class, 'update'])->name('admin.event_category.update');
     Route::delete('/admin/event-categories/{id}', [EventCategoryController::class, 'delete'])->name('admin.event_category.delete');
+
+
+    // Event
+    Route::get('/admin/events', [EventController::class, 'index'])->name('admin.event.index');
+    Route::get('/admin/events/create', [EventController::class, 'create'])->name('admin.event.create');
+    Route::get('/admin/events/{id}', [EventController::class, 'show'])->name('admin.event.single');
+    Route::post('/admin/events', [EventController::class, 'store'])->name('admin.event.store');
+    Route::get('/admin/events/{id}/edit', [EventController::class, 'edit'])->name('admin.event.edit');
+    Route::put('/admin/events/{id}', [EventController::class, 'update'])->name('admin.event.update');
+    Route::delete('/admin/events/{id}', [EventController::class, 'delete'])->name('admin.event.delete');
 
 });
