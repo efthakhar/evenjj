@@ -18,9 +18,12 @@ return new class extends Migration
             $table->time('time');
             $table->string('location');
             $table->unsignedBigInteger('event_category_id');
+            $table->unsignedBigInteger('created_by');
             $table->timestamps();
 
             $table->foreign('event_category_id')->references('id')->on('event_categories')
+                ->cascadeOnUpdate()->restrictOnDelete();
+            $table->foreign('created_by')->references('id')->on('users')
                 ->cascadeOnUpdate()->restrictOnDelete();
         });
     }
