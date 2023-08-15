@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\EventCategory;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class EventController extends Controller
 {
@@ -23,7 +24,7 @@ class EventController extends Controller
 
         $events
             ->when($title, function ($query, $title) {
-                $query->where('name', 'LIKE', '%'.$title.'%');
+                $query->where('title', 'LIKE', '%'.$title.'%');
             })
             ->when($sortby, function ($query, $sortby) use ($sorttype) {
                 $query->orderby($sortby, $sorttype);
@@ -74,6 +75,16 @@ class EventController extends Controller
         return redirect()->route('admin.event.index');
     }
 
+    public function show($id)
+    {
+        $this->authorize('view_event');
+
+        return view('admin.event.single', [
+            'event' => Event::where(['id' => $id,'created_by' => auth()->user()->id,])->first(),
+            'categories' => EventCategory::select('id', 'name')->get()
+        ]);
+    }
+
     public function edit($id)
     {
         $this->authorize('edit_own_event');
@@ -82,5 +93,49 @@ class EventController extends Controller
             'event' => Event::where(['id' => $id,'created_by' => auth()->user()->id,])->first(),
             'categories' => EventCategory::select('id', 'name')->get()
         ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->authorize('edit_own_event');
+
+       
+        $validatedData = $request->validate([
+            'title' => ['required', 'max:100'],
+            'event_category_id' => ['required'],
+            'date' => ['required'],
+            'time' => ['required'],
+            'location' => ['required', 'string'],
+            'description' => ['required', 'string'],
+        ], [
+            'event_category_id.required' => 'plesase select a category',
+        ]);
+
+        $event = Event::where(['id' => $id,'created_by' => auth()->user()->id,])->first();
+        $event->title = $validatedData['title'];
+        $event->event_category_id = $validatedData['event_category_id'];
+        $event->date = $validatedData['date'];
+        $event->time = $validatedData['time'];
+        $event->location = $validatedData['location'];
+        $event->description = $validatedData['description'];
+        $event->created_by = auth()->user()->id;
+
+        $event->save();
+
+        return redirect()->route('admin.event.edit', $id)
+            ->with('EventUpdateSuccess', 'Event Updated Successfully');
+    }
+
+    public function delete($id)
+    {
+        $id = explode(',', $id);
+        $this->authorize('delete_own_event');
+
+        foreach ($id as $i) {
+            $event = Event::find($i);
+            $event->delete();
+        }
+
+        return response()->json(['message' => 'event  deleted'], 201);
     }
 }

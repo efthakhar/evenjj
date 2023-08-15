@@ -67,10 +67,12 @@
                         <td>{{$event->date}}</td>
                         <td>
                             <div class="d-flex justify-center align-center">
+
                                 <a href="{{ route('admin.event.single', $event->id) }}"
                                     class="btn btn-sm p-0 text-info mx-1">
                                     <i class="ri-eye-line h4"></i>
                                 </a>
+
                                 <a href="{{ route('admin.event.edit', $event->id) }}"
                                     class="btn btn-sm p-0 text-sb1 mx-1">
                                     <i class="ri-edit-2-line h4"></i>
@@ -100,5 +102,5 @@
     @endsection
 
     @section('footer-script')
-    <script src="{{asset('assets/admin/js/event-event.js')}}"></script>
+    <script src="{{asset('assets/admin/js/event.js')}}"></script>
     @endsection
