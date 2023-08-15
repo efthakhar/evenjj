@@ -25,7 +25,10 @@ class AuthController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', Rules\Password::defaults()],
+            'password' => [
+                'required', 
+                // Rules\Password::defaults()
+            ],
         ]);
 
         $user = User::create([
@@ -33,8 +36,8 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-        
-        $user->assignRole('super_admin');
+
+        $user->assignRole('user');
 
         if ($user) {
             return redirect('/login');

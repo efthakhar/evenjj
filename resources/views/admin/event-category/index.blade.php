@@ -62,7 +62,9 @@
                     <tr>
                         <th scope="col" class="mw100px">Name</th>
                         <th scope="col" class="mw200px">Slug</th>
+                        @can(['edit_event_category'])
                         <th scope="col" class="mw200px">Action</th>
+                        @endcan
                     </tr>
                 </thead>
                 <tbody>
@@ -70,6 +72,7 @@
                     <tr>
                         <td>{{$category->name}}</td>
                         <td>{{$category->slug}}</td>
+                        @can(['edit_event_category'])
                         <td>
                             <div class="d-flex justify-center align-center">
                                 <a href="{{ route('admin.event_category.single', $category->id) }}"
@@ -88,6 +91,8 @@
 
                             </div>
                         </td>
+                        @endcan
+
                     </tr>
                     @endforeach
                 </tbody>

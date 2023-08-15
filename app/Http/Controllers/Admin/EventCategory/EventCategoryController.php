@@ -5,13 +5,15 @@ namespace App\Http\Controllers\Admin\EventCategory;
 use App\Http\Controllers\Controller;
 use App\Models\EventCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class EventCategoryController extends Controller
 {
     public function index(Request $request)
     {
-
+        
+        //return Auth::user();
         $this->authorize('view_event_category');
 
         $perpage = $request->query('perpage') ?? 10;
