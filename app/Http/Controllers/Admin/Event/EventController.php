@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\EventCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class EventController extends Controller
@@ -137,5 +138,13 @@ class EventController extends Controller
         }
 
         return response()->json(['message' => 'event  deleted'], 201);
+    }
+
+    public function reserve($id)
+    {
+       DB::table('event_reservations')->insert([
+        'event_id' => $id, 
+        'user_id' => auth()->user()->id
+       ]);
     }
 }

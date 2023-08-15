@@ -1,12 +1,12 @@
 <?php
 
 return [
-    [
-        'label' => 'Dashboard',
-        'link' => '/admin',
-        'icon' => 'ri-home-4-line',
-        'permissions' => [],
-    ],
+    // [
+    //     'label' => 'Dashboard',
+    //     'link' => '/admin',
+    //     'icon' => 'ri-home-4-line',
+    //     'permissions' => [],
+    // ],
     [
         'label' => 'Event Category',
         'link' => '/admin/categories',

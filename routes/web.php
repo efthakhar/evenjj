@@ -4,24 +4,14 @@ use App\Http\Controllers\Admin\Dashboard\DashboardController;
 use App\Http\Controllers\Admin\Event\EventController;
 use App\Http\Controllers\Admin\EventCategory\EventCategoryController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Frontend\HomeController;
 use Database\Seeders\DevDemo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', [HomeController::class,'showHomePage']);
 
 // create demo site
 Route::get('/demo', function (Request $reqest) {
@@ -43,7 +33,9 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware(['auth'])->group(function () {
 
     // Dashboard
-    Route::get('/admin', [DashboardController::class, 'overview']);
+    Route::get('/admin', function(){      
+        return redirect()->route('admin.event.index');
+    });
 
     // Event Category
     Route::get('/admin/event-categories', [EventCategoryController::class, 'index'])->name('admin.event_category.index');
@@ -62,6 +54,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/admin/events', [EventController::class, 'store'])->name('admin.event.store');
     Route::get('/admin/events/{id}/edit', [EventController::class, 'edit'])->name('admin.event.edit');
     Route::put('/admin/events/{id}', [EventController::class, 'update'])->name('admin.event.update');
-    Route::delete('/admin/events/{id}', [EventController::class, 'delete'])->name('admin.event.delete');
+    Route::post('/admin/events/reserve/{id}', [EventController::class, 'reserve'])->name('admin.event.reserve');
 
 });
