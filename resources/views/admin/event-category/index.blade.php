@@ -5,7 +5,7 @@
     <div class="d-flex flex-wrap">
         <h4 class="h4 text-capitalize"> Event Category List </h4>
 
-        <a href="/admin/categories/create" class="ms-auto">
+        <a href="/admin/event-categories/create" class="ms-auto">
             <button class="btn btn-sm btn-primary m-1">
                 <i class="ri-add-circle-line h6"></i>
                 <span class="d-none d-sm-inline ms-1"> Add New</span>

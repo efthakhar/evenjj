@@ -56,57 +56,35 @@ class EventCategoryController extends Controller
         ]);
     }
 
-    // public function create()
-    // {
-    //     $this->authorize('create-categories');
+    public function create()
+    {
+        $this->authorize('create_event_category');
 
-    //     return view('admin.category.create');
-    // }
+        return view('admin.event-category.create');
+    }
 
-    // public function store(Request $request)
-    // {
-    //     $this->authorize('create-categories');
+    public function store(Request $request)
+    {
+        $this->authorize('create_event_category');
 
-    //     $slug = $request->slug ? strtolower(str_replace(' ', '-', $request->slug)) : strtolower(str_replace(' ', '-', $request->name));
+        $slug = $request->slug ? strtolower(str_replace(' ', '-', $request->slug)) : strtolower(str_replace(' ', '-', $request->name));
 
-    //     $request->merge(['slug' => $slug]);
+        $request->merge(['slug' => $slug]);
 
-    //     $validatedData = $request->validate([
-    //         'lang' => 'required',
-    //         'post_type' => 'required',
-    //         'parent_category' => 'nullable',
-    //         'name' => [
-    //             'required',
-    //             'max:30',
-    //             new CombineUnique(['lang' => $request->lang, 'name' => $request->name, 'post_type' => $request->post_type], 'categories', 'name must be unique'),
-    //         ],
-    //         'slug' => [
-    //             'required',
-    //             'max:30',
-    //             new CombineUnique(['lang' => $request->lang, 'name' => $request->name, 'post_type' => $request->post_type], 'categories', 'slug must be unique'),
-    //         ],
-    //         'description' => 'string|nullable',
-    //         'meta_tag_description' => 'string|nullable',
-    //         'meta_tag_keywords' => 'string|nullable',
-    //     ]);
+        $validatedData = $request->validate([
 
-    //     $validatedData['created_by'] = auth()->id();
+            'name' => ['required', 'max:30', Rule::unique('event_categories')],
+            'slug' => ['required', 'max:30', Rule::unique('event_categories')],
+        ]);
 
-    //     $category = new EventCategory();
-    //     $category->parent_category_id = $validatedData['parent_category'] ?? null;
-    //     $category->name = $validatedData['name'];
-    //     $category->slug = $validatedData['slug'];
-    //     $category->description = $validatedData['description'];
-    //     $category->meta_tag_description = $validatedData['meta_tag_description'];
-    //     $category->meta_tag_keywords = $validatedData['meta_tag_keywords'];
-    //     $category->lang = $validatedData['lang'];
-    //     $category->post_type = $validatedData['post_type'];
+        $category = new EventCategory();
+        $category->name = $validatedData['name'];
+        $category->slug = $validatedData['slug'];
 
-    //     $category->save();
-    //     $category->attachMedia($request->category_thumbnail, 'thumbnail');
+        $category->save();
 
-    //     return redirect()->route('admin.category.index');
-    // }
+        return redirect()->route('admin.event_category.index');
+    }
 
     public function edit($id)
     {
